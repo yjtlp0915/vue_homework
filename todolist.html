@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div class="page-top">
+    <div class="page-content">
+      <h2>任务计划列表</h2>
+    </div>
+  </div>
+
+  <div class="main" id="todolist" >
+    <h3 class="big-title">添加任务：</h3>
+   <!--  @keyup.enter="add"添加键盘enter点击事件  -->
+    <input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" class="task-input" type="text" @keyup.enter="add" v-model="addInp"/>
+
+    <ul class="task-count">
+      <li>2个任务未完成</li>
+      <li class="action">
+        <a class="active" href="#">所有任务</a>
+        <a href="#">未完成的任务</a>
+        <a href="#">完成的任务</a>
+      </li>
+    </ul>
+
+    <h3 class="big-title">任务列表：</h3>
+    <div class="tasks">
+      <span class="no-task-tip">还没有添加任何任务</span>
+
+      <ul class="todo-list">
+        <!-- :class="{completed:item.isCompleted}"意思是如果item.isCompleted是true（即打上勾），表示任务已经完成，则双向绑定生效，就给它加上completed的划掉的样式 -->
+       <li class="todo" v-for="(item,index) in listItems" :class="{completed:item.isCompleted,editing:item.isEditing}" @dblclick="dbl(item)">
+         <div class="view">
+            <!-- 打钩 -->
+           <input type="checkbox" class="toggle" v-model="item.isCompleted"/>
+            <!-- 添加的列表;item.title对应着app.js里面的title:this.addInp -->
+           <label>{{item.title}}</label>
+           <!-- @click="del"添加点击删除列表事件 -->
+           <button class="destroy" @click="del(index)"></button>
+         </div>
+         <input class="edit" type="text" @keyup.13="edits(item)" v-model="edit"/>
+       </li>
+      </ul>
+
+
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
