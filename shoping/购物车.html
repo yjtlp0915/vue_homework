@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<link rel="stylesheet"  href="shop.css">
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="cart" id="app">
+		<div class="cart_hd">
+			<div class="hd1"><input type="checkbox" name="" @click="shop" v-model="isCheck" class="all_check"><label>全选</label></div>
+			<div class="hd2">商品</div>
+			<div class="hd3">单价</div>
+			<div class="hd4">数量</div>
+			<div class="hd5">小计</div>
+			<div class="hd6">操作</div>
+		</div>
+		<div class="cart_bd">
+			<div class="shop" v-for="item in shops">
+				<h4><input type="checkbox" id="check" class="shop_check" v-model="item.isCheck" @click="shop_name(item)" name="">{{item.shop_name}}</h4>
+				<div class="cart_list" v-for="(_item,index) in item.cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name="" @click="goods_name(_item,item)" v-model="_item.isCheck"></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							{{_item.goods_txt}}
+						</div>
+					</div>
+					<div class="p3 price">￥{{_item.price}}</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥{{_item.sum_price}}</div>
+					<div class="p6"><a href="javascript:;" @click="del(index)" class="del">删除</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="cart_foot">
+			<button>去结算</button>
+			<div class="total_price">总价：<span>￥0.00</span></div>
+			<div class="total_num">已选择<span>0</span>件商品</div>
+		</div>
+	</div>
+
+	<script src="shop.js"></script>
+</body>
+</html>
